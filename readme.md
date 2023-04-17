@@ -25,7 +25,7 @@ Text Case Changer is a simple web application that allows users to change the te
 git clone https://github.com/adityasatalkar/Text-Case-Changer.git
 ```
 
-2. Open the index.html file in your preferred web browser.
+2. Open the case-change.html file in your preferred web browser.
 
 ### Usage
 
