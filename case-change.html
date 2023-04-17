@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Case Changer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            resize: none;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        button {
+            margin: 0.5rem;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            /* background-color: #C4C4CC;*/
+            background-color: #424245;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #818185;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <div>
+        <button onclick="changeTextCase('sentence')">Sentence case</button>
+        <button onclick="changeTextCase('lower')">lower case</button>
+        <button onclick="changeTextCase('upper')">UPPER CASE</button>
+        <button onclick="changeTextCase('capitalized')">Capitalized Case</button>
+        <button onclick="changeTextCase('changeToHyphen')">Replace spaces with hyphens</button>
+    </div>
+
+    <script>
+        function changeTextCase(caseType) {
+            const inputText = document.getElementById('inputText');
+            let newText = '';
+
+            if (caseType === 'sentence') {
+                newText = inputText.value.replace(/(^\s*\w|[.!?]\s*\w)/g, function (match) {
+                    return match.toUpperCase();
+                });
+            } else if (caseType === 'lower') {
+                newText = inputText.value.toLowerCase();
+            } else if (caseType === 'upper') {
+                newText = inputText.value.toUpperCase();
+            } else if (caseType === 'capitalized') {
+                newText = inputText.value
+                    .toLowerCase()
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            } else if (caseType === 'changeToHyphen') {
+                newText = inputText.value.replace(/ /g, '-');
+            }
+            inputText.value = newText;
+        }
+    </script>
+</body>
+</html>
