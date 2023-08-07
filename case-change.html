@@ -50,6 +50,8 @@
         <button onclick="changeTextCase('upper')">UPPER CASE</button>
         <button onclick="changeTextCase('capitalized')">Capitalized Case</button>
         <button onclick="changeTextCase('changeToHyphen')">Replace spaces with hyphens</button>
+        <button onclick="changeTextCase('changeToSpace')">Replace hyphens with spaces</button>
+        <button onclick="changeTextCase('replaceUnderscore')">Replace underscores with spaces</button>
     </div>
 
     <script>
@@ -73,6 +75,10 @@
                     .join(' ');
             } else if (caseType === 'changeToHyphen') {
                 newText = inputText.value.replace(/ /g, '-');
+            } else if (caseType === 'changeToSpace') {
+                newText = inputText.value.replace(/-/g, ' ');
+            } else if (caseType === 'replaceUnderscore') {
+                newText = inputText.value.replace(/_/g, ' ');
             }
             inputText.value = newText;
         }
