@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Text Case Changer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #f7f7f7;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            height: 100vh;
-            margin: 0;
         }
 
         textarea {
@@ -23,28 +25,35 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1rem;
+            margin-bottom: 1rem;
         }
 
-        button {
-            margin: 0.5rem;
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            width: 80%;
+            margin-bottom: 1rem;
+        }
+
+        .button-grid button {
             padding: 0.5rem 1rem;
             font-size: 1rem;
             border: none;
             border-radius: 5px;
-            /* background-color: #C4C4CC;*/
             background-color: #424245;
             color: white;
             cursor: pointer;
         }
 
-        button:hover {
+        .button-grid button:hover {
             background-color: #818185;
         }
     </style>
 </head>
 <body>
     <textarea id="inputText" placeholder="Type your text here..."></textarea>
-    <div>
+    <div class="button-grid">
         <button onclick="changeTextCase('sentence')">Sentence case</button>
         <button onclick="changeTextCase('lower')">lower case</button>
         <button onclick="changeTextCase('upper')">UPPER CASE</button>
@@ -52,9 +61,9 @@
         <button onclick="changeTextCase('changeToHyphen')">Replace spaces with hyphens</button>
         <button onclick="changeTextCase('changeToSpace')">Replace hyphens with spaces</button>
         <button onclick="changeTextCase('replaceUnderscore')">Replace underscores with spaces</button>
-        <button onclick="changeTextCase('jsonBeautify')">JSON Beautifier</button>
+        <button onclick="changeTextCase('jsonBeautify')">JSON Beautify</button>
+        <button onclick="changeTextCase('minifyJson')">Minify JSON</button>
     </div>
-
     <script>
         function changeTextCase(caseType) {
             const inputText = document.getElementById('inputText');
@@ -89,9 +98,19 @@
                     // If there is a parsing error, catch it and display an error message
                     newText = "Error: Invalid JSON";
                 }
+            } else if (caseType === 'minifyJson') {
+                try {
+                    newText = JSON.stringify(JSON.parse(inputText.value));
+                } catch (error) {
+                    alert('Invalid JSON');
+                }
             }
             inputText.value = newText;
         }
     </script>
+    <!-- Include Bootstrap JS and dependencies (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </body>
 </html>
