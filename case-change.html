@@ -52,6 +52,7 @@
         <button onclick="changeTextCase('changeToHyphen')">Replace spaces with hyphens</button>
         <button onclick="changeTextCase('changeToSpace')">Replace hyphens with spaces</button>
         <button onclick="changeTextCase('replaceUnderscore')">Replace underscores with spaces</button>
+        <button onclick="changeTextCase('jsonBeautify')">JSON Beautifier</button>
     </div>
 
     <script>
@@ -79,6 +80,15 @@
                 newText = inputText.value.replace(/-/g, ' ');
             } else if (caseType === 'replaceUnderscore') {
                 newText = inputText.value.replace(/_/g, ' ');
+            } else if (caseType === 'jsonBeautify') {
+                try {
+                    // Parse the JSON to ensure it is valid and then stringify it with indentation
+                    const obj = JSON.parse(inputText.value);
+                    newText = JSON.stringify(obj, null, 4);
+                } catch (e) {
+                    // If there is a parsing error, catch it and display an error message
+                    newText = "Error: Invalid JSON";
+                }
             }
             inputText.value = newText;
         }
