@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Case Changer</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            height: 100vh;
+            background-color: #f7f7f7;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            resize: none;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            width: 80%;
+            margin-bottom: 1rem;
+        }
+
+        .button-grid button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #424245;
+            color: white;
+            cursor: pointer;
+        }
+
+        .button-grid button:hover {
+            background-color: #818185;
+        }
+    </style>
+</head>
+<body>
+    <textarea id="inputText" placeholder="Type your text here..."></textarea>
+    <div class="button-grid">
+        <button onclick="changeTextCase('sentence')">Sentence case</button>
+        <button onclick="changeTextCase('lower')">lower case</button>
+        <button onclick="changeTextCase('upper')">UPPER CASE</button>
+        <button onclick="changeTextCase('capitalized')">Capitalized Case</button>
+        <button onclick="changeTextCase('changeToHyphen')">Replace spaces with hyphens</button>
+        <button onclick="changeTextCase('changeToSpace')">Replace hyphens with spaces</button>
+        <button onclick="changeTextCase('replaceUnderscore')">Replace underscores with spaces</button>
+        <button onclick="changeTextCase('jsonBeautify')">JSON Beautify</button>
+        <button onclick="changeTextCase('minifyJson')">Minify JSON</button>
+    </div>
+    <script>
+        function changeTextCase(caseType) {
+            const inputText = document.getElementById('inputText');
+            let newText = '';
+
+            if (caseType === 'sentence') {
+                newText = inputText.value.replace(/(^\s*\w|[.!?]\s*\w)/g, function (match) {
+                    return match.toUpperCase();
+                });
+            } else if (caseType === 'lower') {
+                newText = inputText.value.toLowerCase();
+            } else if (caseType === 'upper') {
+                newText = inputText.value.toUpperCase();
+            } else if (caseType === 'capitalized') {
+                newText = inputText.value
+                    .toLowerCase()
+                    .split(' ')
+                    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                    .join(' ');
+            } else if (caseType === 'changeToHyphen') {
+                newText = inputText.value.replace(/ /g, '-');
+            } else if (caseType === 'changeToSpace') {
+                newText = inputText.value.replace(/-/g, ' ');
+            } else if (caseType === 'replaceUnderscore') {
+                newText = inputText.value.replace(/_/g, ' ');
+            } else if (caseType === 'jsonBeautify') {
+                try {
+                    // Parse the JSON to ensure it is valid and then stringify it with indentation
+                    const obj = JSON.parse(inputText.value);
+                    newText = JSON.stringify(obj, null, 4);
+                } catch (e) {
+                    // If there is a parsing error, catch it and display an error message
+                    newText = "Error: Invalid JSON";
+                }
+            } else if (caseType === 'minifyJson') {
+                try {
+                    newText = JSON.stringify(JSON.parse(inputText.value));
+                } catch (error) {
+                    alert('Invalid JSON');
+                }
+            }
+            inputText.value = newText;
+        }
+    </script>
+    <!-- Include Bootstrap JS and dependencies (Optional) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>
